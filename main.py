@@ -1,46 +1,67 @@
 import pygame;
+from sprites import *;
+from config import *;
+import sys
 
-pygame.init();
+class Game:
+    def _init_(self):
+        pygame.init();
 
-SCREEN_WIDTH = 800;
-SCREEN_HEIGHT = 600;
+        self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
-screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-
-player = pygame.Rect((200, 150, 30, 30))
-
-run = True
-while run:
-    
-    screen.fill((0,0,0))
-    pygame.draw.rect(screen, (100, 20, 135), player)
-    
-    key = pygame.key.get_pressed();
-    
-    if key[pygame.K_a] == True:
-        player.move_ip(-1,0)
-    elif key[pygame.K_d] == True:
-        player.move_ip(1,0)
+        self.clock = pygame.time.Clock()
+        self.font = pygame.font.Font('Times New Roman', 32)
+        self.running = True;
         
-    elif key[pygame.K_w] == True: 
-        player.move_ip(0,-1)
-    elif key[pygame.K_s] == True:
-        player.move_ip(0,1)
-    
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            run = False;
+    def new(self):
+        # Start of new game
+        self.playing = True
         
-        if event.type == pygame.KEYDOWN:
-            print("Key pressed baby")
-        if event.type == pygame.KEYUP:
-            print("Why did you stop?")
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            print("Clickity Clackity")
-        if event.type == pygame.MOUSEBUTTONUP:
-            print("Atleast buy something will YA! GEEZ!")
+        self.all_sprites = pygame.sprite.LayeredUpdates()
+        self.blocks = pygame.sprite.LayeredUpdates()
+        self.enemies = pygame.sprite.LayeredUpdates()
+        self.attacks = pygame.sprite.LayeredUpdates()
+        
+        self.player = Player(self, 1, 2)
+        
+    def events(self):
+        #game loop events
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                self.playing = False
+                self.running = False
+                
+    def update(self):
+        #updating game loops
+        self.all_sprites.update()
         
         
-    pygame.display.update();
+    def draw(self):
+        self.screen.fill(BLACK)
+        self.all_sprites.draw(self.screen)
+        self.clock.tick(FPS)
+        pygame.display.update()
+        
+    def main(self):
+        #game loop
+        while self.playing:
+            self.events()
+            self.update()
+            self.draw()
+        self.running = False
+        
+    def game_over(self):
+        pass
+    
+    def intro_screen(self):
+        pass
 
+g = Game()
+g.intro_screen()
+g.new()
+while g.running:
+    g.main()
+    g.game_over()
+    
 pygame.quit()
+sys.exit()
