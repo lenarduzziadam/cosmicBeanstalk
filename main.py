@@ -12,7 +12,17 @@ class Game:
         self.clock = pygame.time.Clock()
         #self.font = pygame.font.Font('Times New Roman', 32)
         self.running = True;
-        
+    
+    #method to create home_map
+    def createMap(self):
+        #Loop and nested for finding B and P (For adding barriers and Player to map)
+        for i, row in enumerate(home_map):
+            for j, column in enumerate(row):
+                if column == "B": #creates a barrier
+                    Block(self, j, i)
+                if column == "P":
+                    Player(self, j, i)
+
     def new(self):
         # Start of new game
         self.playing = True
@@ -23,7 +33,9 @@ class Game:
         self.enemies = pygame.sprite.LayeredUpdates() #handles enemy sprites
         self.attacks = pygame.sprite.LayeredUpdates() #handles attack animations
         
-        self.player = Player(self, 1, 2); #initializes player at position (1,2)
+        self.createMap()
+       
+       #self.player = Player(self, 1, 2); #initializes player at position (1,2)
         
     def events(self):
         #game loop events
