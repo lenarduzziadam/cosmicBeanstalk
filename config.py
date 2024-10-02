@@ -12,12 +12,12 @@ BLACK = (0, 0, 0);
 GREEN = (0, 255, 0);
 
 #LAYER Classifications
-PLAYER_LAYER = 2;
-BLOCK_LAYER = 1
-#GROUND_LAYER = 1;
+PLAYER_LAYER = 3;
+BLOCK_LAYER = 2
+GROUND_LAYER = 1;
 
 #Player 
-PLAYER_SPEED = 4;
+PLAYER_SPEED = 7;
 
 
 #Enviorment
