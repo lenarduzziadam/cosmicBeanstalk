@@ -18,6 +18,7 @@ class Player(pygame.sprite.Sprite):
         self.width = TILESIZE
         self.height = TILESIZE
         
+        #sets change in x to placeholder 0
         self.x_change = 0
         self.y_change = 0
         
