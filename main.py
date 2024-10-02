@@ -4,25 +4,26 @@ from config import *;
 import sys
 
 class Game:
-    def _init_(self):
+    def __init__(self):
         pygame.init();
 
         self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
         self.clock = pygame.time.Clock()
-        self.font = pygame.font.Font('Times New Roman', 32)
+        #self.font = pygame.font.Font('Times New Roman', 32)
         self.running = True;
         
     def new(self):
         # Start of new game
         self.playing = True
         
+        # Initialize sprite groups for handling various objects in the game
         self.all_sprites = pygame.sprite.LayeredUpdates()
-        self.blocks = pygame.sprite.LayeredUpdates()
-        self.enemies = pygame.sprite.LayeredUpdates()
-        self.attacks = pygame.sprite.LayeredUpdates()
+        self.blocks = pygame.sprite.LayeredUpdates() #Used for walls/obstacles
+        self.enemies = pygame.sprite.LayeredUpdates() #handles enemy sprites
+        self.attacks = pygame.sprite.LayeredUpdates() #handles attack animations
         
-        self.player = Player(self, 1, 2)
+        self.player = Player(self, 1, 2); #initializes player at position (1,2)
         
     def events(self):
         #game loop events
@@ -36,7 +37,8 @@ class Game:
         self.all_sprites.update()
         
         
-    def draw(self):
+    def draw(self): 
+        #Draws everthing onto screen
         self.screen.fill(BLACK)
         self.all_sprites.draw(self.screen)
         self.clock.tick(FPS)
@@ -45,23 +47,29 @@ class Game:
     def main(self):
         #game loop
         while self.playing:
-            self.events()
-            self.update()
-            self.draw()
+            self.events() ##handles events such as player inputs/Quiting
+            self.update() #updates game objects
+            self.draw() #draws objects to screen
         self.running = False
         
     def game_over(self):
+        #TODO: handles what occurs when game is over(Placehodler for now).
         pass
     
     def intro_screen(self):
+        #TODO: handles intro screen (Placeholder for now)
         pass
 
+# Create a game instance and starts intro screen, followed game loop
 g = Game()
 g.intro_screen()
 g.new()
+
+#keeps game running until player quits
 while g.running:
     g.main()
     g.game_over()
-    
+
+#exits game, then system when game loop ends.    
 pygame.quit()
 sys.exit()

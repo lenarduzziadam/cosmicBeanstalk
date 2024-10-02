@@ -15,4 +15,4 @@ PLAYER_LAYER = 1;
 
 
 #Enviorment
-GROUND_LAYER = 1;
+#GROUND_LAYER = 1;
