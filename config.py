@@ -12,6 +12,7 @@ BLACK = (0, 0, 0);
 
 #Player 
 PLAYER_LAYER = 1;
+PLAYER_SPEED = 4;
 
 
 #Enviorment
