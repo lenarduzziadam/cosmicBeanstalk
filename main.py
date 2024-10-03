@@ -10,13 +10,15 @@ class Game:
         self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
         self.game_name = pygame.display.set_caption('Cosmic Beanstalk')
         self.clock = pygame.time.Clock()
-        #self.font = pygame.font.Font('Times New Roman', 32)
+
         self.running = True;
+        self.font = pygame.font.Font('Times New Roman/times new roman italic.ttf', 30)
         
         self.character_spritesheet = SpriteSheet('img/character.png')
         self.terrain_spritesheet = SpriteSheet('img/terrain.png')
         self.enemy_spritesheet = SpriteSheet('img/enemy.png')
-    
+        self.intro_background = pygame.image.load('./img/introbackground.png')
+        
     #method to create home_map
     def createMap(self):
         #Loop and nested for finding B and P (For adding barriers and Player to map)
@@ -79,8 +81,32 @@ class Game:
         pass
     
     def intro_screen(self):
-        #TODO: handles intro screen (Placeholder for now)
-        pass
+        intro = True
+        
+        title = self.font.render('The Cosmic Stalk', True, BLACK)
+        title_rect = title.get_rect(x = 10, y = 10)
+        
+        play_button = Button(10, 50, 100, 50, MPURPLE, BLACK, 'Play', 30)
+        
+        while intro:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    intro = False
+                    self.running = False
+            
+            #gets position of mouse on screen
+            mouse_pos = pygame.mouse.get_pos()
+            mouse_pressed = pygame.mouse.get_pressed()
+            
+            if play_button.is_pressed(mouse_pos, mouse_pressed):
+                intro = False
+            
+            self.screen.blit(self.intro_background, (0, 0))
+            self.screen.blit(title, title_rect)
+            self.screen.blit(play_button.image, play_button.rect)
+            self.clock.tick(FPS)
+            
+            pygame.display.update()
 
 # Create a game instance and starts intro screen, followed game loop
 g = Game()
