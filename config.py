@@ -1,5 +1,5 @@
 #Sizes
-SCREEN_WIDTH = 1220;
+SCREEN_WIDTH = 1230;
 SCREEN_HEIGHT = 600;
 TILESIZE = 30;
 
@@ -10,6 +10,7 @@ FPS = 60;
 MPURPLE = (100, 20, 135);
 BLACK = (0, 0, 0);
 GREEN = (0, 255, 0);
+RED = (255, 0, 0);
 
 #LAYER Classifications
 PLAYER_LAYER = 3;

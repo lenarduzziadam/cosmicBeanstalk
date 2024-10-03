@@ -8,7 +8,7 @@ class Game:
         pygame.init();
 
         self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-
+        self.game_name = pygame.display.set_caption('Cosmic Beanstalk')
         self.clock = pygame.time.Clock()
         #self.font = pygame.font.Font('Times New Roman', 32)
         self.running = True;
