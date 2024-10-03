@@ -19,7 +19,7 @@ BLOCK_LAYER = 2;
 GROUND_LAYER = 1;
 
 #SPEED Classifications
-PLAYER_SPEED = 7;
+PLAYER_SPEED = 5;
 ENEMY_SPEED = 2;
 
 #Enviorment
