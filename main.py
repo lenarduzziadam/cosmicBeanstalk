@@ -15,6 +15,7 @@ class Game:
         
         self.character_spritesheet = SpriteSheet('img/character.png')
         self.terrain_spritesheet = SpriteSheet('img/terrain.png')
+        self.enemy_spritesheet = SpriteSheet('img/enemy.png')
     
     #method to create home_map
     def createMap(self):
@@ -22,9 +23,14 @@ class Game:
         for i, row in enumerate(home_map):
             for j, column in enumerate(row):
                 Ground(self, j, i)
+                
                 if column == "B": #creates a barrier
                     Block(self, j, i)
-                if column == "P":
+                
+                if column == "E": #creates an enemy
+                    Enemy(self, j, i)
+                
+                if column == "P": #spawns player sprite onto player
                     Player(self, j, i)
 
     def new(self):
