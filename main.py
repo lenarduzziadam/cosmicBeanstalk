@@ -12,7 +12,9 @@ class Game:
         self.clock = pygame.time.Clock()
 
         self.running = True;
-        self.font = pygame.font.Font('Times New Roman/times new roman italic.ttf', 30)
+        
+        #defines font (gets from file directory, and adjusts font size)
+        self.font = pygame.font.Font('Times New Roman/times new roman italic.ttf', 60)
         
         self.character_spritesheet = SpriteSheet('img/character.png')
         self.terrain_spritesheet = SpriteSheet('img/terrain.png')
@@ -77,10 +79,10 @@ class Game:
             self.draw() #draws objects to screen
         
     def game_over(self):
-        text = self.font.render('Game Over', True, WHITE)
-        text_rect = text.get_rect(center=(SCREEN_HEIGHT/2, SCREEN_WIDTH/2))
+        text = self.font.render('Game Over', True, BLACK)
+        text_rect = text.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/2))
         
-        restart_but = Button(10, SCREEN_HEIGHT - 60, 120, 50, WHITE, BLACK, 'Restart Game?', 25)
+        restart_but = Button(10, SCREEN_HEIGHT - 60, 120, 50, WHITE, BLACK, 'Retry?', 25)
         
         for sprite in self.all_sprites:
             sprite.kill()
@@ -110,7 +112,7 @@ class Game:
         title = self.font.render('The Cosmic Stalk', True, MPURPLE)
         title_rect = title.get_rect(x = 10, y = 10)
         
-        play_button = Button(50, 50, 75, 30, BLACK, RED, 'Play', 30 )
+        play_button = Button(100, 100, 160, 90, BLACK, RED, 'Play', 50 )
         
         while intro:
             for event in pygame.event.get():
