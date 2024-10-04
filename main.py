@@ -18,6 +18,7 @@ class Game:
         self.terrain_spritesheet = SpriteSheet('img/terrain.png')
         self.enemy_spritesheet = SpriteSheet('img/enemy.png')
         self.intro_background = pygame.image.load('./img/introbackground.png')
+        self.gameover_backg = pygame.image.load('./img/gameover.png')
         
     #method to create home_map
     def createMap(self):
@@ -74,19 +75,42 @@ class Game:
             self.events() ##handles events such as player inputs/Quiting
             self.update() #updates game objects
             self.draw() #draws objects to screen
-        self.running = False
         
     def game_over(self):
-        #TODO: handles what occurs when game is over(Placehodler for now).
-        pass
+        text = self.font.render('Game Over', True, WHITE)
+        text_rect = text.get_rect(center=(SCREEN_HEIGHT/2, SCREEN_WIDTH/2))
+        
+        restart_but = Button(10, SCREEN_HEIGHT - 60, 120, 50, WHITE, BLACK, 'Restart Game?', 25)
+        
+        for sprite in self.all_sprites:
+            sprite.kill()
+        
+        while self.running:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    self.running = False
+                    
+            mouse_pos = pygame.mouse.get_pos()
+            mouse_pressed = pygame.mouse.get_pressed()
+            
+            if restart_but.is_pressed(mouse_pos, mouse_pressed):
+                self.new() 
+                self.main()
+                
+            self.screen.blit(self.gameover_backg, (0,0))
+            self.screen.blit(text, text_rect)
+            self.screen.blit(restart_but.image, restart_but.rect)
+            self.clock.tick(FPS)
+            pygame.display.update()
+            
     
     def intro_screen(self):
         intro = True
         
-        title = self.font.render('The Cosmic Stalk', True, BLACK)
+        title = self.font.render('The Cosmic Stalk', True, MPURPLE)
         title_rect = title.get_rect(x = 10, y = 10)
         
-        play_button = Button(10, 50, 100, 50, MPURPLE, BLACK, 'Play', 30)
+        play_button = Button(50, 50, 75, 30, BLACK, RED, 'Play', 30 )
         
         while intro:
             for event in pygame.event.get():

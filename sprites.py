@@ -165,7 +165,7 @@ class Player(pygame.sprite.Sprite):
         hits = pygame.sprite.spritecollide(self, self.game.enemies, False)
         
         if hits:
-            self.Kill()
+            self.kill()
             self.game.playing = False
     
     #Handles collisions for barriers/Blocks            
@@ -326,9 +326,10 @@ class Ground(pygame.sprite.Sprite):
 
 class Button:
     def __init__(self, x, y, width, height, foreg, backg, content, fontsize):
-        self.font = pygame.font.Font('Times New Roman/times new roman italic.ttf', 30)
+        self.font = pygame.font.Font('Times New Roman/times new roman.ttf', fontsize)
         self.content = content
         
+        #cordinates and size definers for button
         self.x = x
         self.y = y
         self.width = width
@@ -346,10 +347,11 @@ class Button:
         self.rect.y = self.y
         
         self.text = self.font.render(self.content, True, self.foreg)
-        self.text_rect = self.text.get_rect(center = (self.width/2, self.height/2))
-        self.text.blit(self.text, self.text_rect)
+        self.text_rect = self.text.get_rect(center=(self.width/2, self.height/2))
+        self.image.blit(self.text, self.text_rect)
         
     def is_pressed(self, pos, pressed):
+        
         if self.rect.collidepoint(pos):
             if pressed[0]:
                 return True
