@@ -2,6 +2,7 @@ import pygame;
 from sprites import *;
 from config import *;
 import sys
+from debug import debug
 
 class Game:
     def __init__(self):
@@ -72,7 +73,8 @@ class Game:
                         Attack(self, self.player.rect.x + TILESIZE, self.player.rect.y)
                     if self.player.facing == 'left':
                         Attack(self, self.player.rect.x - TILESIZE, self.player.rect.y)
-                    
+        
+        debug('hello :')            
     def update(self):
         #updating game loops
         self.all_sprites.update()
