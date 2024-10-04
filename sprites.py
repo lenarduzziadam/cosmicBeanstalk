@@ -3,6 +3,19 @@ from config import *
 import math
 import random
 
+class Level:
+    def __init__(self):
+        
+        #get display surface
+        self.dis_surface = pygame.display.get_surface
+        
+        #new sprite groups setup
+        self.visible_sprites = pygame.sprite.Group()
+        self.obstacle_sprites = pygame.sprite.Group()
+    
+    def run(self):
+        #updates and draws game
+        pass
 class SpriteSheet:
     def __init__(self, file):
         self.sheet = pygame.image.load(file).convert()
@@ -81,6 +94,7 @@ class Player(pygame.sprite.Sprite):
         self.animation_loop = 1
     
     def movement(self):
+        
         #Key press related movments
         keys = pygame.key.get_pressed()
         
@@ -129,7 +143,7 @@ class Player(pygame.sprite.Sprite):
             
             else:
                 self.image = self.down_animations[math.floor(self.animation_loop)]
-                self.animation_loop += 0.1
+                self.animation_loop += 0.3
                 if self.animation_loop >= 3:
                     self.animation_loop = 1
                     
@@ -139,7 +153,7 @@ class Player(pygame.sprite.Sprite):
             
             else:
                 self.image = self.up_animations[math.floor(self.animation_loop)]
-                self.animation_loop += 0.1
+                self.animation_loop += 0.3
                 if self.animation_loop >= 3:
                     self.animation_loop = 1
                     
@@ -149,7 +163,7 @@ class Player(pygame.sprite.Sprite):
             
             else:
                 self.image = self.left_animations[math.floor(self.animation_loop)]
-                self.animation_loop += 0.1
+                self.animation_loop += 0.3
                 if self.animation_loop >= 3:
                     self.animation_loop = 1
         
@@ -159,7 +173,7 @@ class Player(pygame.sprite.Sprite):
             
             else:
                 self.image = self.right_animations[math.floor(self.animation_loop)]
-                self.animation_loop += 0.1
+                self.animation_loop += 0.3
                 if self.animation_loop >= 3:
                     self.animation_loop = 1
     
@@ -253,6 +267,9 @@ class Enemy(pygame.sprite.Sprite):
         self.y_change = 0
         
     def movement(self):
+        # Save the old position to reset if collision occurs
+        old_x = self.rect.x
+        old_y = self.rect.y
         
         if self.facing == 'left':
             self.x_change -= ENEMY_SPEED;
@@ -266,7 +283,23 @@ class Enemy(pygame.sprite.Sprite):
             if self.movement_loop >= self.max_travel:
                 self.facing = 'left'
     
-    
+         # Apply movement
+        self.rect.x += self.x_change
+
+        # Check for collisions with blocks
+        hits = pygame.sprite.spritecollide(self, self.game.blocks, False)
+        if hits:
+            # If a collision happens, reverse direction and move the enemy back slightly
+            if self.facing == 'left':
+                self.rect.x = old_x  # Reset position to avoid overlap with the block
+                self.facing = 'right'  # Reverse direction
+                self.rect.x += ENEMY_SPEED  # Push back to prevent getting stuck
+                
+            elif self.facing == 'right':
+                self.rect.x = old_x  # Reset position to avoid overlap with the block
+                self.facing = 'left'  # Reverse direction
+                self.rect.x -= ENEMY_SPEED  # Push back to prevent getting stuck
+            
     def animate(self):
   
         if self.facing == 'left':
@@ -444,3 +477,4 @@ class Attack(pygame.sprite.Sprite):
             self.animation_loop += 0.5
             if self.animation_loop >= 5:
                 self.kill()
+                

@@ -12,6 +12,7 @@ class Game:
         self.game_name = pygame.display.set_caption('Cosmic Beanstalk')
         self.clock = pygame.time.Clock()
 
+        self.level = Level()
         self.running = True;
         
         #defines font (gets from file directory, and adjusts font size)
@@ -74,7 +75,10 @@ class Game:
                     if self.player.facing == 'left':
                         Attack(self, self.player.rect.x - TILESIZE, self.player.rect.y)
         
-        debug('hello :')            
+        self.level.run()
+           
+        
+               
     def update(self):
         #updating game loops
         self.all_sprites.update()
