@@ -100,35 +100,23 @@ class Player(pygame.sprite.Sprite):
         
         #Handles right and left
         if keys[pygame.K_LEFT]:
-            
-            for sprite in self.game.all_sprites:
-                sprite.rect.x += PLAYER_SPEED
                 
             self.x_change -= PLAYER_SPEED
             self.facing = 'left'
             
         if keys[pygame.K_RIGHT]:
-            
-            for sprite in self.game.all_sprites:
-                sprite.rect.x -= PLAYER_SPEED
-                
+   
             self.x_change += PLAYER_SPEED
             self.facing = 'right'
        
        #Handles up and down
         if keys[pygame.K_UP]:
-            
-            for sprite in self.game.all_sprites:
-                sprite.rect.y += PLAYER_SPEED
                 
             self.y_change -= PLAYER_SPEED
             self.facing = 'up'
             
         if keys[pygame.K_DOWN]:
             
-            for sprite in self.game.all_sprites:
-                sprite.rect.y -= PLAYER_SPEED
-                
             self.y_change += PLAYER_SPEED
             self.facing = 'down'
     
@@ -478,3 +466,26 @@ class Attack(pygame.sprite.Sprite):
             if self.animation_loop >= 5:
                 self.kill()
                 
+
+class Camera:
+    def __init__(self, width, height):
+        self.camera = pygame.Rect(0, 0, width, height)
+        self.width = width
+        self.height = height
+
+    def apply(self, entity):
+        # Move the entity's position based on the camera
+        return entity.rect.move(self.camera.topleft)
+
+    def update(self, target):
+        # Center the camera on the target (player)
+        x = -target.rect.centerx + int(SCREEN_WIDTH / 2)
+        y = -target.rect.centery + int(SCREEN_HEIGHT / 2)
+
+        # Limit scrolling to the map size
+        x = min(0, x)  # Left boundary
+        y = min(0, y)  # Top boundary
+        x = max(-(self.width - SCREEN_WIDTH), x)  # Right boundary
+        y = max(-(self.height - SCREEN_HEIGHT), y)  # Bottom boundary
+
+        self.camera = pygame.Rect(x, y, self.width, self.height)

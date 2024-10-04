@@ -15,6 +15,9 @@ class Game:
         self.level = Level()
         self.running = True;
         
+        self.camera = Camera(len(home_map[0]) * TILESIZE, len(home_map) * TILESIZE)  # Create camera with map size
+        
+        
         #defines font (gets from file directory, and adjusts font size)
         self.font = pygame.font.Font('Times New Roman/times new roman italic.ttf', 60)
         
@@ -83,12 +86,21 @@ class Game:
         #updating game loops
         self.all_sprites.update()
         
+        # Update the camera position to follow the player
+        self.camera.update(self.player)
         
     def draw(self): 
         #Draws everthing onto screen
         self.screen.fill(BLACK)
         self.all_sprites.draw(self.screen)
         self.clock.tick(FPS)
+        
+        # Draw all sprites with the camera offset
+        for sprite in self.all_sprites:
+            self.screen.blit(sprite.image, self.camera.apply(sprite))
+        # Update the camera position to follow the player
+        self.camera.update(self.player)
+        
         pygame.display.update()
         
     def main(self):
