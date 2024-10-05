@@ -92,6 +92,7 @@ class Player(pygame.sprite.Sprite):
         self.y_change = 0
         
         self.animation_loop = 1
+        self.collide_enemy()
     
     def movement(self):
         
@@ -176,34 +177,21 @@ class Player(pygame.sprite.Sprite):
     def collide_blocks(self, direction):
         if direction == "x":
             hits = pygame.sprite.spritecollide(self, self.game.blocks, False)
-            
             if hits:
-                #handles leftward collisons
                 if self.x_change > 0:
-                    self.rect.x = hits[0].rect.left - self.rect.width
-                    for sprite in self.game.all_sprites:
-                        sprite.rect.x += PLAYER_SPEED
-                        
-                #handles rightward collisions
-                if self.x_change < 0:
-                    self.rect.x = hits[0].rect.right
-                    for sprite in self.game.all_sprites:
-                        sprite.rect.x -= PLAYER_SPEED
-        
+                    self.rect.right = hits[0].rect.left
+                elif self.x_change < 0:
+                    self.rect.left = hits[0].rect.right
+                self.x_change = 0
+
         if direction == "y":
             hits = pygame.sprite.spritecollide(self, self.game.blocks, False)
-            
             if hits:
-                #handles leftward collisons
                 if self.y_change > 0:
-                    self.rect.y = hits[0].rect.top - self.rect.height
-                    for sprite in self.game.all_sprites:
-                        sprite.rect.y += PLAYER_SPEED
-                #handles rightward collisions
-                if self.y_change < 0:
-                    self.rect.y = hits[0].rect.bottom 
-                    for sprite in self.game.all_sprites:
-                        sprite.rect.y -= PLAYER_SPEED
+                    self.rect.bottom = hits[0].rect.top
+                elif self.y_change < 0:
+                    self.rect.top = hits[0].rect.bottom
+                self.y_change = 0
 class Enemy(pygame.sprite.Sprite):
     def __init__(self, game, x, y):
        
