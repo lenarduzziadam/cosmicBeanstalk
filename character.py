@@ -1,4 +1,4 @@
-from weapon import fists, uchigatana
+from weapon import *
 
 
 class Character:
@@ -33,3 +33,4 @@ class Enemy(Character):
     def __init__(self, name: str, health: str, weapon) -> None:
         super().__init__(name = name, health = health)
         self.weapon = weapon
+        self.weakness = fire

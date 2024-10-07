@@ -47,3 +47,24 @@ enflamed_kasenaru = Weapon("Enflamed Kasenaru", "Ranged Spell", "fire", 50, 130)
 stalking_vines = Weapon("Vines of the Great Stalk", "Ranged Spell", "arcane", 80, 1000)
 
 wolfs_moon = Weapon("Howlers Moon", "AoE Spell", "cosmic", 45, 650)
+
+
+class Weakness:
+    def __init__(self, type: str, multiplier: int): 
+        self.type = type
+        self.multiplier = multiplier
+        
+#Magic elemental weakness    
+fire = Weakness("fire", 2)
+water = Weakness("water", 2)
+earth = Weakness("earth", 2)
+
+arcane = Weakness("arcane", 3)
+cosmic = Weakness("cosmic", 3)
+
+#Damage type weakness
+sharp = Weakness("Sharp", 2)
+blunt = Weakness("Blunt", 2)
+pointy = Weakness("Pointy", 2)
+
+ranged = Weakness("Ranged", 3)
