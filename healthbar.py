@@ -5,7 +5,7 @@ os.system("")
 class HealthBar:
     symbol_remain: str = "#"
     symbol_lost: str = "_"
-    barrier: str = " | "
+    barrier: str = "|"
     
     def __init__(self, entity, length: int = 20, is_colored: bool = True, color: str = "") -> None:
         self.entity = entity
