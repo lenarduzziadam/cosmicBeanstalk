@@ -29,6 +29,9 @@ class Game:
         self.intro_background = pygame.image.load('./img/introbackground.png')
         self.gameover_backg = pygame.image.load('./img/gameover.png')
         
+        self.font = pygame.font.Font('Times New Roman/times new roman.ttf', 24)  # Set font for displaying health
+    
+        
     #method to create home_map
     def createMap(self):
         #Loop and nested for finding B and P (For adding barriers and Player to map)
@@ -102,6 +105,20 @@ class Game:
         self.camera.update(self.player)
         
         pygame.display.update()
+        
+    
+    def draw_health(self):
+        # Render the player's health as text
+        health_text = self.font.render(f'Health: {self.player.health}', True, WHITE)
+        self.screen.blit(health_text, (10, 10))  # Display at the top-left corner
+
+    def draw(self):
+        # Draw everything onto the screen
+        self.screen.fill(BLACK)
+        self.all_sprites.draw(self.screen)
+        self.draw_health()  # Draw the health display
+        pygame.display.update()
+
         
     def main(self):
         #game loop

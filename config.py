@@ -12,6 +12,10 @@ BLACK = (0, 0, 0);
 GREEN = (0, 255, 0);
 RED = (255, 0, 0);
 WHITE = (255, 255, 255)
+BLUE = (25, 25, 200)
+OFFBLACK = (23, 23, 23)
+OFFWHITE = (254, 254, 254)
+
 
 #LAYER Classifications
 PLAYER_LAYER = 4;
@@ -20,8 +24,8 @@ BLOCK_LAYER = 2;
 GROUND_LAYER = 1;
 
 #SPEED Classifications
-PLAYER_SPEED = 5;
-ENEMY_SPEED = 2;
+PLAYER_SPEED = 2;
+ENEMY_SPEED = 1;
 
 #Enviorment
 home_map = [
