@@ -1,9 +1,9 @@
 import pygame, sys
 from config import *
-from character import Hero, Enemy
+from character import *
 from weapon import *
 
-chosen = Hero(name= "Arshan", health = 150)
+chosen = Hero(name= "Arshan", health = 500)
 chosen.equip(uchigatana)
 
 boss = Enemy(name = "Todokhin", health = 300, weapon = steel_longsword)
@@ -29,6 +29,7 @@ while True:
     print(f"health of {chosen.name}: {chosen.health}" )
     print(f"health of {grunt.name}: {grunt.health}" )
     
-    chosen.drop()
+    if chosen.weapon != fists:
+        chosen.drop()
     
     input()
